@@ -1,0 +1,13 @@
+{
+    "name": "Simple cryptocoin investments watcher by nama5 s.r.o.",
+    "dependencies": {
+        "angular": "1.6.5",
+        "angular-touch": "1.6.5",
+        "bootstrap": "3.3.7",
+        "font-awesome": "^4",
+        "angular-bootstrap": "2.5.0"
+    },
+    "resolutions": {
+        "angular": "1.6.5"
+    }
+}

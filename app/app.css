@@ -1,0 +1,9 @@
+h4 .price-block {
+    font-size: 0.8em;
+}
+
+
+h4 .price-block .label {
+    font-weight: normal;
+    margin-right: 3px;
+}

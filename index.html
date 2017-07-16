@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" ng-app="sciwApp">
+<head>
+    <meta charset="utf-8">
+    <title>Cryptocoin watcher</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+
+    <meta name="description" content="Simple cryptocoin investments watcher">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="libraries/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libraries/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app/app.css">
+
+    <link rel="shortcut icon" href="favicon.ico">
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Simple cryptocoin investments watcher</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="(coinCode, coinData) in items">
+            <h4>{{ coinCode }}
+                <br>
+                <span class="price-block">
+                    <span class="label label-default" ng-repeat="(priceCode, price) in coinData.$$currentPrice">{{ priceCode }} {{ price | number : 8 }}</span>
+                </span>
+            </h4>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Price</th>
+                    <th>Currency</th>
+                    <th>Profit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="trade in coinData.trades">
+                    <td>{{ trade.amount }}</td>
+                    <td>{{ trade.price }}</td>
+                    <td>{{ trade.currency }}</td>
+                    <td>{{ (coinData.$$currentPrice[trade.currency] / trade.price * 100 - 100 | number : 1) + '%' }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="libraries/jquery/dist/jquery.min.js"></script>
+<script src="libraries/angular/angular.min.js"></script>
+<script src="libraries/angular-touch/angular-touch.min.js"></script>
+<script src="libraries/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="app/app.js"></script>
+
+</body>
+</html>

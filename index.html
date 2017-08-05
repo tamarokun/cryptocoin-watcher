@@ -40,20 +40,22 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Amount</th>
-                        <th>Price</th>
-                        <th>Currency</th>
-                        <th>Profit</th>
                         <th>&nbsp;</th>
+                        <th class="text-right">Amount</th>
+                        <th class="text-right">Price</th>
+                        <th class="text-center">Currency</th>
+                        <th class="text-right">Value</th>
+                        <th class="text-right">Profit</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="trade in coinData.trades">
-                        <td>{{ trade.amount }}</td>
-                        <td>{{ trade.price }}</td>
-                        <td>{{ trade.currency }}</td>
-                        <td class="profit" ng-class="[coinData.$$currentPrice[trade.currency] / trade.price - 1 > 0 ? 'text-success' : 'text-danger']">{{ (coinData.$$currentPrice[trade.currency] / trade.price * 100 - 100 | number : 1) + '%' }}</td>
-                        <td>&nbsp;</td>
+                        <td><button type="button" class="btn btn-link btn-xs"><i class="fa fa-remove"></i></button></td>
+                        <td class="text-right">{{ trade.amount }}</td>
+                        <td class="text-right">{{ trade.price | number : 8 }}</td>
+                        <td class="text-center">{{ trade.currency }}</td>
+                        <td class="text-right"><span class="text-muted">{{ trade.$$tradeValue.old['EUR'] | number : 1 }} <i class="fa fa-long-arrow-right"></i> {{ trade.$$tradeValue.current['EUR'] | number : 1 }} <i class="fa fa-eur"></i></span></td>
+                        <td class="profit text-right" ng-class="[coinData.$$currentPrice[trade.currency] / trade.price - 1 > 0 ? 'text-success' : 'text-danger']">{{ (coinData.$$currentPrice[trade.currency] / trade.price * 100 - 100 | number : 1) + '%' }}</td>
                     </tr>
                     </tbody>
                 </table>

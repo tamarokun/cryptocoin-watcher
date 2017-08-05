@@ -26,21 +26,31 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
     });
 
 
-/*
-
     $http.get(apiLink, {params: {fsyms: 'ETH,DASH,DOGE', tsyms: 'BTC,USD,EUR'}}).then(
         function(response) {
             console.log(response.data);
             angular.forEach(response.data, function(data, code) {
                 if (angular.isDefined($s.items[code])) {
                     $s.items[code].$$currentPrice = data;
+
+                    angular.forEach($s.items[code].trades, function(tradeData)
+                    {
+                        tradeData.$$tradeValue = {
+                            current: {},
+                            old: {}
+                        };
+                        angular.forEach(data, function(price, currency) {
+                            tradeData.$$tradeValue.old[currency] = tradeData.amount * tradeData.price;
+                            tradeData.$$tradeValue.current[currency] = tradeData.amount * price;
+                        });
+                    });
+
                 }
             });
             console.log(response.data);
         }
     )
 
-*/
 
 //    function add
 

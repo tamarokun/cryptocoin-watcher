@@ -25,6 +25,9 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
 
     });
 
+
+/*
+
     $http.get(apiLink, {params: {fsyms: 'ETH,DASH,DOGE', tsyms: 'BTC,USD,EUR'}}).then(
         function(response) {
             console.log(response.data);
@@ -37,6 +40,20 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
         }
     )
 
+*/
+
 //    function add
 
 }]);
+
+
+app.filter('lowercase', function()
+{
+    return function(input) {
+        if (angular.isString(input)) {
+            return input.toLowerCase();
+        } else {
+            return '';
+        }
+    }
+});

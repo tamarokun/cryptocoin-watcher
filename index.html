@@ -15,7 +15,7 @@
 
     <link rel="shortcut icon" href="favicon.ico">
 </head>
-<body>
+<body class="dark">
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -28,33 +28,36 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="(coinCode, coinData) in items">
-            <h4>{{ coinCode }}
-                <br>
-                <span class="price-block">
-                    <span class="label label-default" ng-repeat="(priceCode, price) in coinData.$$currentPrice">{{ priceCode }} {{ price | number : 8 }}</span>
-                </span>
-            </h4>
+        <div class="col-xs-12">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 coinblock" ng-repeat="(coinCode, coinData) in items">
+                <h4>{{ coinCode }}
+                    <br>
+                    <span class="price-block">
+                        <span class="label label-default" ng-repeat="(priceCode, price) in coinData.$$currentPrice"><i class="fa fa-{{ priceCode | lowercase }}"></i> {{ price | number : 8 }}</span>
+                    </span>
+                </h4>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Amount</th>
-                    <th>Price</th>
-                    <th>Currency</th>
-                    <th>Profit</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="trade in coinData.trades">
-                    <td>{{ trade.amount }}</td>
-                    <td>{{ trade.price }}</td>
-                    <td>{{ trade.currency }}</td>
-                    <td>{{ (coinData.$$currentPrice[trade.currency] / trade.price * 100 - 100 | number : 1) + '%' }}</td>
-                </tr>
-                </tbody>
-            </table>
-
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Price</th>
+                        <th>Currency</th>
+                        <th>Profit</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="trade in coinData.trades">
+                        <td>{{ trade.amount }}</td>
+                        <td>{{ trade.price }}</td>
+                        <td>{{ trade.currency }}</td>
+                        <td class="profit" ng-class="[coinData.$$currentPrice[trade.currency] / trade.price - 1 > 0 ? 'text-success' : 'text-danger']">{{ (coinData.$$currentPrice[trade.currency] / trade.price * 100 - 100 | number : 1) + '%' }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -1,0 +1,71 @@
+h4 .price-block {
+    font-size: 0.8em;
+
+    .label {
+        font-weight: normal;
+        margin-right: 3px;
+    }
+}
+
+
+body {
+
+    &.dark {
+        background: #333;
+    }
+
+}
+
+
+.navbar {
+    border-radius: 0;
+
+    body.dark & {
+        background: black;
+        color: white;
+        border: 0;
+
+        .navbar-brand {
+            color: rgb(200, 200, 200);
+        }
+    }
+}
+
+
+.coinblock {
+    border: 1px solid #EEE;
+    border-radius: 0 10px;
+
+    table thead tr th {
+        font-size: 0.8em;
+        border-bottom: 1px;
+        padding: 3px 5px;
+    }
+
+    table tbody td {
+        font-size: 0.85em;
+        padding: 3px 5px;
+        border-bottom: 1px solid #EEE;
+
+        &.profit {
+            font-weight: bold;
+        }
+    }
+
+
+    body.dark & {
+        border: 0;
+        background: white;
+    }
+
+}
+
+
+.text-success {
+    color: #4CAE4C;
+}
+
+.text-danger {
+    color: #C9302C;
+}
+

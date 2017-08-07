@@ -7,9 +7,16 @@ var app = angular.module('sciwApp', [
 app.run(['$rootScope', '$http', function($rootScope, $http)
 {
     var $s = $rootScope,
-        apiLink = 'https://min-api.cryptocompare.com/data/pricemulti';
+        apiLink = 'https://min-api.cryptocompare.com/data/pricemulti',
+        cryptoCodes = ['BTC', 'EUR', 'USD', 'ETH', 'DOGE', 'DASH'];
+
 
     angular.extend($s, {
+
+        exchangeRates: {},
+        displayCodes: ['BTC', 'EUR', 'USD'],
+        finalCurrency: 'BTC',
+        finalCurrencyPrecision: 5,
 
         items: {
             'DOGE': {
@@ -17,8 +24,17 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
                     {
                         amount: 12000,
                         price: 0.0012,
-                        currency: 'EUR'
+                        currency: 'EUR',
+                        exchange: 'Kraken'
+                    },
+
+                    {
+                        amount: 10000,
+                        price: 0.0029,
+                        currency: 'USD',
+                        exchange: 'Poloniex'
                     }
+
                 ]
             }
         }
@@ -26,10 +42,13 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
     });
 
 
-    $http.get(apiLink, {params: {fsyms: 'ETH,DASH,DOGE', tsyms: 'BTC,USD,EUR'}}).then(
+
+    $http.get(apiLink, {params: {fsyms: cryptoCodes.join(','), tsyms: cryptoCodes.join(',')}}).then(
         function(response) {
-            console.log(response.data);
+            $s.exchangeRates = response.data;
+
             angular.forEach(response.data, function(data, code) {
+
                 if (angular.isDefined($s.items[code])) {
                     $s.items[code].$$currentPrice = data;
 
@@ -39,8 +58,10 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
                             current: {},
                             old: {}
                         };
+
                         angular.forEach(data, function(price, currency) {
-                            tradeData.$$tradeValue.old[currency] = tradeData.amount * tradeData.price;
+                            // FIXME verify existence of desired final currency in exchange list
+                            tradeData.$$tradeValue.old[currency] = tradeData.amount * tradeData.price * $s.exchangeRates[tradeData.currency][$s.finalCurrency];
                             tradeData.$$tradeValue.current[currency] = tradeData.amount * price;
                         });
                     });

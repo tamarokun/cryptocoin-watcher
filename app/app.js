@@ -8,15 +8,18 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
 {
     var $s = $rootScope,
         apiLink = 'https://min-api.cryptocompare.com/data/pricemulti',
-        cryptoCodes = ['BTC', 'EUR', 'USD', 'ETH', 'DOGE', 'DASH'];
+        cryptoCodes = ['BTC', 'EUR', 'USD', 'ETH', 'DOGE', 'DASH', 'EOS', 'IOT', 'SAN'];
 
 
     angular.extend($s, {
 
+        changeCurrency: changeCurrency,
+
+
         exchangeRates: {},
         displayCodes: ['BTC', 'EUR', 'USD'],
-        finalCurrency: 'BTC',
-        finalCurrencyPrecision: 5,
+        finalCurrency: 'EUR',
+        finalCurrencyPrecision: 1,
 
         items: {
             'DOGE': {
@@ -34,11 +37,49 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
                         currency: 'USD',
                         exchange: 'Poloniex'
                     }
+                ]
+            },
 
+            'EOS': {
+                trades: [
+                    {
+                        amount: 8.18,
+                        price: 2.78,
+                        currency: 'USD',
+                        exchange: 'Bitfinex'
+                    }
+                ]
+            },
+
+            'SAN': {
+                trades: [
+                    {
+                        amount: 135,
+                        price: 0.18499,
+                        currency: 'USD',
+                        exchange: 'Bitfinex'
+                    }
+                ]
+            },
+
+            'IOT': {
+                trades: [
+                    {
+                        amount: 30.26448377,
+                        price: 0.00017345,
+                        currency: 'BTC',
+                        exchange: 'Bitfinex'
+                    },
+
+                    {
+                        amount: 186.73215195,
+                        price: 0.000098,
+                        currency: 'BTC',
+                        exchange: 'Bitfinex'
+                    }
                 ]
             }
         }
-
     });
 
 
@@ -61,7 +102,7 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
 
                         angular.forEach(data, function(price, currency) {
                             // FIXME verify existence of desired final currency in exchange list
-                            tradeData.$$tradeValue.old[currency] = tradeData.amount * tradeData.price * $s.exchangeRates[tradeData.currency][$s.finalCurrency];
+                            tradeData.$$tradeValue.old[currency] = tradeData.amount * tradeData.price * $s.exchangeRates[tradeData.currency][currency];
                             tradeData.$$tradeValue.current[currency] = tradeData.amount * price;
                         });
                     });
@@ -74,6 +115,20 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
 
 
 //    function add
+
+
+    function changeCurrency(currency, e)
+    {
+        $s.finalCurrency = currency;
+        switch (currency) {
+            case 'BTC':
+                $s.finalCurrencyPrecision = 5;
+                break;
+            default:
+                $s.finalCurrencyPrecision = 1;
+        }
+        e.preventDefault();
+    }
 
 }]);
 

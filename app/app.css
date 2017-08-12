@@ -8,6 +8,11 @@ h4 .price-block .label {
   background: #DDD;
   color: black;
 }
+body {
+  padding-top: 60px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
 body.dark {
   background: #333;
 }
@@ -22,9 +27,34 @@ body.dark .navbar {
 body.dark .navbar .navbar-brand {
   color: #c8c8c8;
 }
-.coinblock {
+.navbar .extra-buttons {
+  float: right;
+  display: inline-block;
+  padding-top: 10px;
+}
+.navbar .extra-buttons > .btn {
+  margin-left: 5px;
+}
+.navbar .extra-buttons .btn,
+.navbar .extra-buttons .btn:focus {
+  background: #999;
+  border-color: #666;
+  color: #EEE;
+  outline: none;
+}
+.navbar .extra-buttons .btn:hover {
+  background: #AAA;
+  color: #FFF;
+}
+.navbar .extra-buttons .btn.active {
+  color: #000;
+  background: #FFF;
+}
+.coinblock .row.content {
   border: 1px solid #EEE;
   border-radius: 0 10px;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 .coinblock table thead tr th {
   font-size: 0.75em;
@@ -44,6 +74,8 @@ body.dark .navbar .navbar-brand {
 }
 body.dark .coinblock {
   border: 0;
+}
+body.dark .coinblock .row.content {
   background: white;
 }
 .text-success {

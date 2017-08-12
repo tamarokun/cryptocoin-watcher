@@ -13,6 +13,10 @@ h4 .price-block {
 
 body {
 
+    padding-top: 60px;
+    padding-left: 5px;
+    padding-right: 5px;
+
     &.dark {
         background: #333;
     }
@@ -32,12 +36,48 @@ body {
             color: rgb(200, 200, 200);
         }
     }
+
+    .extra-buttons {
+        float: right;
+        display: inline-block;
+        padding-top: 10px;
+
+        > .btn {
+            margin-left: 5px;
+        }
+
+        .btn {
+
+            &, &:focus {
+                background: #999;
+                border-color: #666;
+                color: #EEE;
+                outline: none;
+            }
+
+            &:hover {
+                background: #AAA;
+                color: #FFF;
+            }
+
+            &.active {
+                color: #000;
+                background: #FFF;
+            }
+        }
+
+    }
 }
 
 
 .coinblock {
-    border: 1px solid #EEE;
-    border-radius: 0 10px;
+    .row.content {
+        border: 1px solid #EEE;
+        border-radius: 0 10px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
 
     table thead tr th {
         font-size: 0.75em;
@@ -61,7 +101,10 @@ body {
 
     body.dark & {
         border: 0;
-        background: white;
+
+        .row.content {
+            background: white;
+        }
     }
 
 }

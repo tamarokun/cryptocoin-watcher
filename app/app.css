@@ -78,9 +78,52 @@ body.dark .coinblock {
 body.dark .coinblock .row.content {
   background: white;
 }
+.exchange-list {
+  margin: 0 -10px 10px -10px;
+}
+.exchange-list .label {
+  background: #AAA;
+  margin-right: 3px;
+}
+.exchange-list .label.e0 {
+  background: #8ba695;
+}
+.exchange-list .label.e1 {
+  background: #a69d86;
+}
+.exchange-list .label.e2 {
+  background: #998ba6;
+}
+.exchange-list .label.e3 {
+  background: #82a1a6;
+}
+.exchange-list .label.e4 {
+  background: #a69288;
+}
+.exchange-indicator {
+  border-left: 5px solid #AAA;
+}
+.exchange-indicator.e0 {
+  border-left-color: #6BA68B;
+}
+.exchange-indicator.e1 {
+  border-left-color: #A69D68;
+}
+.exchange-indicator.e2 {
+  border-left-color: #8C6CA6;
+}
+.exchange-indicator.e3 {
+  border-left-color: #56A3A6;
+}
+.exchange-indicator.e4 {
+  border-left-color: #A67C61;
+}
 .text-success {
   color: #4CAE4C;
 }
 .text-danger {
   color: #C9302C;
+}
+.btn-link {
+  color: #999;
 }

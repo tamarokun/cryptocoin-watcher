@@ -20,6 +20,8 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
         displayCodes: ['BTC', 'EUR', 'USD'],
         finalCurrency: 'EUR',
         finalCurrencyPrecision: 1,
+        uniqueExchangeList: [],
+        uniqueExchangeListByName: {},
 
         items: {
             'DOGE': {
@@ -83,6 +85,8 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
     });
 
 
+    fillUniqueExchangeList($s.items);
+
 
     $http.get(apiLink, {params: {fsyms: cryptoCodes.join(','), tsyms: cryptoCodes.join(',')}}).then(
         function(response) {
@@ -109,12 +113,32 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
 
                 }
             });
-            console.log(response.data);
+        }, function(response) {
+            // not loaded
         }
-    )
+    );
 
 
 //    function add
+
+    function fillUniqueExchangeList(data) {
+        var list = {};
+        angular.forEach(data, function(currency)
+        {
+            angular.forEach(currency.trades, function(trade) {
+                list[trade.exchange] = true;
+            });
+        });
+
+        $s.uniqueExchangeList = [];
+        $s.uniqueExchangeListByName = {};
+
+        var index = 0;
+        angular.forEach(list, function(value, key) {
+            $s.uniqueExchangeList.push(key);
+            $s.uniqueExchangeListByName[key] = index++;
+        });
+    }
 
 
     function changeCurrency(currency, e)

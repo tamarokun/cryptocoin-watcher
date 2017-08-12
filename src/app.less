@@ -109,6 +109,41 @@ body {
 
 }
 
+@color0: #8BA695;
+@color1: #A69D86;
+@color2: #998BA6;
+@color3: #82A1A6;
+@color4: #A69288;
+
+
+.exchange-list {
+    margin: 0 -10px 10px -10px;
+
+    .label {
+        background: #AAA;
+        margin-right: 3px;
+
+        &.e0 { background: @color0; }
+        &.e1 { background: @color1; }
+        &.e2 { background: @color2; }
+        &.e3 { background: @color3; }
+        &.e4 { background: @color4; }
+    }
+}
+
+
+.exchange-indicator {
+    border-left: 5px solid #AAA;
+
+    &.e0 { border-left-color: #6BA68B; }
+    &.e1 { border-left-color: #A69D68; }
+    &.e2 { border-left-color: #8C6CA6; }
+    &.e3 { border-left-color: #56A3A6; }
+    &.e4 { border-left-color: #A67C61; }
+}
+
+
+
 
 .text-success {
     color: #4CAE4C;
@@ -117,4 +152,11 @@ body {
 .text-danger {
     color: #C9302C;
 }
+
+
+
+.btn-link {
+    color: #999;
+}
+
 

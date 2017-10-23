@@ -14,12 +14,19 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
     angular.extend($s, {
 
         changeCurrency: changeCurrency,
+        reloadRates: reloadRates,
 
 
         exchangeRates: {},
         displayCodes: ['BTC', 'EUR', 'USD'],
         finalCurrency: 'EUR',
         finalCurrencyPrecision: 1,
+
+        totalValue: {
+            old: {},
+            current: {}
+        },
+
         uniqueExchangeList: [],
         uniqueExchangeListByName: {},
 
@@ -86,37 +93,7 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
 
 
     fillUniqueExchangeList($s.items);
-
-
-    $http.get(apiLink, {params: {fsyms: cryptoCodes.join(','), tsyms: cryptoCodes.join(',')}}).then(
-        function(response) {
-            $s.exchangeRates = response.data;
-
-            angular.forEach(response.data, function(data, code) {
-
-                if (angular.isDefined($s.items[code])) {
-                    $s.items[code].$$currentPrice = data;
-
-                    angular.forEach($s.items[code].trades, function(tradeData)
-                    {
-                        tradeData.$$tradeValue = {
-                            current: {},
-                            old: {}
-                        };
-
-                        angular.forEach(data, function(price, currency) {
-                            // FIXME verify existence of desired final currency in exchange list
-                            tradeData.$$tradeValue.old[currency] = tradeData.amount * tradeData.price * $s.exchangeRates[tradeData.currency][currency];
-                            tradeData.$$tradeValue.current[currency] = tradeData.amount * price;
-                        });
-                    });
-
-                }
-            });
-        }, function(response) {
-            // not loaded
-        }
-    );
+    reloadRates();
 
 
 //    function add
@@ -152,6 +129,59 @@ app.run(['$rootScope', '$http', function($rootScope, $http)
                 $s.finalCurrencyPrecision = 1;
         }
         e.preventDefault();
+    }
+
+
+    function reloadRates(e)
+    {
+        $http.get(apiLink, {params: {fsyms: cryptoCodes.join(','), tsyms: cryptoCodes.join(',')}}).then(
+            function(response) {
+                $s.exchangeRates = response.data;
+
+                $s.totalValue = {
+                    old: {},
+                    current: {}
+                };
+
+
+                angular.forEach(response.data, function(data, code) {
+
+                    if (angular.isDefined($s.items[code])) {
+                        $s.items[code].$$currentPrice = data;
+
+                        angular.forEach($s.items[code].trades, function(tradeData)
+                        {
+                            tradeData.$$profit = data[tradeData.currency] / tradeData.price;
+                            tradeData.$$tradeValue = {
+                                current: {},
+                                old: {}
+                            };
+
+                            angular.forEach(data, function(price, currency) {
+                                tradeData.$$tradeValue.old[currency] = tradeData.amount * tradeData.price * $s.exchangeRates[tradeData.currency][currency];
+                                if (angular.isUndefined($s.totalValue.old[currency])) {
+                                    $s.totalValue.old[currency] = 0;
+                                }
+                                $s.totalValue.old[currency] += tradeData.$$tradeValue.old[currency];
+
+                                tradeData.$$tradeValue.current[currency] = tradeData.amount * price;
+                                if (angular.isUndefined($s.totalValue.current[currency])) {
+                                    $s.totalValue.current[currency] = 0;
+                                }
+                                $s.totalValue.current[currency] += tradeData.$$tradeValue.current[currency];
+                            });
+                        });
+
+                    }
+                });
+            }, function(response) {
+                // not loaded
+            }
+        );
+
+        if (angular.isDefined(e)) {
+            e.preventDefault();
+        }
     }
 
 }]);

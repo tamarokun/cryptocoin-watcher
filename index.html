@@ -24,12 +24,13 @@
         <div class="extra-buttons">
             <button type="button" class="btn btn-sm pull-right" ng-class="{'fa-spin': realoadingRates}" ng-click="reloadRates($event)"><i class="fa fa-refresh fa-lg"></i></button>
 
+            <span>{{ totalValue.old[finalCurrency] | number : finalCurrencyPrecision }} <i class="fa fa-long-arrow-right"></i> {{ totalValue.current[finalCurrency] | number : finalCurrencyPrecision }}</span>
+
             <div class="btn-group btn-group-sm">
                 <button type="button" class="btn" ng-class="{'active': finalCurrency === 'BTC'}" ng-click="changeCurrency('BTC', $event)"><i class="fa fa-bitcoin fa-lg"></i></button>
                 <button type="button" class="btn" ng-class="{'active': finalCurrency === 'EUR'}" ng-click="changeCurrency('EUR', $event)"><i class="fa fa-euro fa-lg"></i></button>
                 <button type="button" class="btn" ng-class="{'active': finalCurrency === 'USD'}" ng-click="changeCurrency('USD', $event)"><i class="fa fa-usd fa-lg"></i></button>
             </div>
-
         </div>
     </div>
 </nav>
@@ -70,7 +71,7 @@
                             <td class="text-right">{{ trade.price | number : 8 }}</td>
                             <td class="text-center">{{ trade.currency }}</td>
                             <td class="text-right"><span class="text-muted">{{ trade.$$tradeValue.old[finalCurrency] | number : finalCurrencyPrecision }} <i class="fa fa-long-arrow-right"></i> {{ trade.$$tradeValue.current[finalCurrency] | number : finalCurrencyPrecision }} <i class="fa" ng-class="{'fa-euro': finalCurrency === 'EUR', 'fa-bitcoin': finalCurrency === 'BTC', 'fa-usd': finalCurrency === 'USD'}"></i></span></td>
-                            <td class="profit text-right" ng-class="[coinData.$$currentPrice[trade.currency] / trade.price - 1 > 0 ? 'text-success' : 'text-danger']">{{ (coinData.$$currentPrice[trade.currency] / trade.price * 100 - 100 | number : 1) + '%' }}</td>
+                            <td class="profit text-right" ng-class="[trade.$$profit - 1 > 0 ? 'text-success' : 'text-danger']">{{ (trade.$$profit * 100 - 100 | number : 1) + '%' }}</td>
                         </tr>
                         </tbody>
                     </table>

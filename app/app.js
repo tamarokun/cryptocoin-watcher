@@ -1,7 +1,8 @@
 "use strict";
 
 var app = angular.module('sciwApp', [
-    'ngTouch'
+    'ngTouch',
+    'masonry'
 ]);
 
 app.run(['$rootScope', '$http', function($rootScope, $http)

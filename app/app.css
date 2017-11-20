@@ -50,11 +50,17 @@ body.dark .navbar .navbar-brand {
   color: #000;
   background: #FFF;
 }
-.coinblock .row.content {
+.coinblock {
+  width: 380px;
+  margin: 5px;
+  background: white;
+}
+.coinblock .content {
+  padding: 0 10px;
   border: 1px solid #EEE;
-  border-radius: 0 10px;
-  margin-left: -10px;
-  margin-right: -10px;
+}
+body.dark .coinblock {
+  border: 0;
 }
 .coinblock table thead tr th {
   font-size: 0.75em;
@@ -72,12 +78,6 @@ body.dark .navbar .navbar-brand {
 .coinblock table tbody td.profit {
   font-weight: bold;
 }
-body.dark .coinblock {
-  border: 0;
-}
-body.dark .coinblock .row.content {
-  background: white;
-}
 .exchange-list {
   margin: 0 -10px 10px -10px;
 }
@@ -86,19 +86,19 @@ body.dark .coinblock .row.content {
   margin-right: 3px;
 }
 .exchange-list .label.e0 {
-  background: #8ba695;
+  background: #8BA695;
 }
 .exchange-list .label.e1 {
-  background: #a69d86;
+  background: #A69D86;
 }
 .exchange-list .label.e2 {
-  background: #998ba6;
+  background: #998BA6;
 }
 .exchange-list .label.e3 {
-  background: #82a1a6;
+  background: #82A1A6;
 }
 .exchange-list .label.e4 {
-  background: #a69288;
+  background: #A69288;
 }
 .exchange-indicator {
   border-left: 5px solid #AAA;
@@ -126,4 +126,7 @@ body.dark .coinblock .row.content {
 }
 .btn-link {
   color: #999;
+}
+div[masonry] {
+  margin: 0 auto;
 }

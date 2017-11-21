@@ -7,7 +7,8 @@
         "font-awesome": "^4",
         "angular-bootstrap": "2.5.0",
         "masonry-layout": "4.2.0",
-        "angular-masonry-directive": "latest"
+        "angular-masonry-directive": "latest",
+        "ng-focus-if": "1.0.7"
     },
     "resolutions": {
         "angular": "1.6.6",

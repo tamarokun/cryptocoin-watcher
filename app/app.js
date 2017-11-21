@@ -2,7 +2,8 @@
 
 var app = angular.module('sciwApp', [
     'ngTouch',
-    'masonry'
+    'masonry',
+    'focus-if'
 ]);
 
 app.run(['$rootScope', '$http', function($rootScope, $http)

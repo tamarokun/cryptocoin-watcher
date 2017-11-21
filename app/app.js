@@ -3,10 +3,11 @@
 var app = angular.module('sciwApp', [
     'ngTouch',
     'masonry',
-    'focus-if'
+    'focus-if',
+    'ui.bootstrap'
 ]);
 
-app.run(['$rootScope', '$http', function($rootScope, $http)
+app.run(['$rootScope', '$http', '$uibModal', function($rootScope, $http, $uibModal)
 {
     var $s = $rootScope,
         apiLink = 'https://min-api.cryptocompare.com/data/pricemulti',

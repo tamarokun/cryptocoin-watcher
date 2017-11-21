@@ -43,7 +43,7 @@
     </div>
 
 
-    <div masonry="{{ {transitionDuration : '0.4s' , itemSelector : '.coinblock', fitWidth: true} | json }}">
+    <div masonry="{{ {transitionDuration : '0.4s' , itemSelector : '.coinblock', fitWidth: true} | json }}" ng-cloak ng-if="items">
         <div masonry-tile class="coinblock" ng-repeat="(coinCode, coinData) in items">
             <div class="content">
                 <h4>{{ coinCode }}
@@ -68,7 +68,7 @@
                     <tr ng-repeat="trade in coinData.trades">
                         <td class="exchange-indicator e{{ uniqueExchangeListByName[trade.exchange] }}" title="{{ trade.exchange }}"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-remove"></i></button></td>
                         <td class="text-right">{{ trade.amount | number }}</td>
-                        <td class="text-right">{{ trade.price | number : 5 }}</td>
+                        <td class="text-right" title="{{ trade.price | number : 8 }}">{{ trade.price | number : 5 }}</td>
                         <td class="text-center">{{ trade.currency }}</td>
                         <td class="text-right"><span class="text-muted">{{ trade.$$tradeValue.old[finalCurrency] | number : finalCurrencyPrecision }} <i class="fa fa-long-arrow-right"></i> {{ trade.$$tradeValue.current[finalCurrency] | number : finalCurrencyPrecision }} <i class="fa" ng-class="{'fa-euro': finalCurrency === 'EUR', 'fa-bitcoin': finalCurrency === 'BTC', 'fa-usd': finalCurrency === 'USD'}"></i></span></td>
                         <td class="profit text-right" ng-class="[trade.$$profit - 1 > 0 ? 'text-success' : 'text-danger']">{{ (trade.$$profit * 100 - 100 | number : 1) + '%' }}</td>
